@@ -26,7 +26,7 @@
    - https://link.springer.com/book/10.1007/978-3-319-10575-8
 
 
-   この本の Chapter 21: Model Checing Parameteterized Systems を紹介する
+   Chapter 21: Model Checing Parameteterized Systems を紹介する
    - その中でも Section 3: Regular Model Checking を中心に扱う
 
 
@@ -658,7 +658,6 @@
 [[./images/priority-mutex.png]]
 
 
-
 - I :: 初期状態
 - R :: mutex 操作をするリクエスト．
   - 自分以外に I, R でないプロセスがいるなら I \(\longrightarrow\) R に遷移しない
@@ -666,11 +665,8 @@
 - C :: クリティカルセクション
 
 
+
 ** 例題：量化子付きの Mutex
-# 
-#    #+ATTR_LATEX: :width 0.4\textwidth
-#    [[./images/priority-mutex.png]]
-# 
 
 全てのプロセスが直線状につながっているという前提
 

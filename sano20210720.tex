@@ -1,4 +1,4 @@
-% Created 2021-07-20 Tue 14:04
+% Created 2021-07-20 Tue 14:15
 % Intended LaTeX compiler: pdflatex
 \documentclass[presentation, xetex]{beamer}
 \usepackage[utf8]{inputenc}
@@ -34,23 +34,23 @@
 
 
 \section{Introduction}
-\label{sec:orgdf394bb}
+\label{sec:org12d338f}
 
-\begin{frame}[label={sec:org4775004}]{参考文献}
+\begin{frame}[label={sec:org49d6af8}]{参考文献}
 Handbook of Model Checking
 \begin{itemize}
 \item \url{https://link.springer.com/book/10.1007/978-3-319-10575-8}
 \end{itemize}
 
 
-この本の Chapter 21: Model Checing Parameteterized Systems を紹介する
+Chapter 21: Model Checing Parameteterized Systems を紹介する
 \begin{itemize}
 \item その中でも Section 3: Regular Model Checking を中心に扱う
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}[label={sec:orged5e662}]{背景：LMNtal のモデル検査}
+\begin{frame}[label={sec:orgfb454bf}]{背景：LMNtal のモデル検査}
 SLIM は Model Checking が可能
 \begin{itemize}
 \item ただし，全状態を列挙しないと健全な検査はできない
@@ -71,7 +71,7 @@ LMNtal ShapeType は文脈自由の生成規則によって\\
 \end{frame}
 
 
-\begin{frame}[label={sec:org15380e5}]{（とりあえずの）方針}
+\begin{frame}[label={sec:org446412c}]{（とりあえずの）方針}
 既存の \alert{\alert{Parameteterized Model Checking}} について調査し，\\
 SLIM, LMNtal ShapeType などに応用できないか考える
 \begin{itemize}
@@ -81,9 +81,9 @@ SLIM, LMNtal ShapeType などに応用できないか考える
 
 
 \section{Parametrized Model Checking の概要}
-\label{sec:org7257787}
+\label{sec:org0a0b686}
 
-\begin{frame}[label={sec:org85469bf}]{Parametrized Model Checking とは}
+\begin{frame}[label={sec:org078ecdb}]{Parametrized Model Checking とは}
 パラメータの入ったモデルを扱う
 \begin{itemize}
 \item N 個のプロセスが相互排他制御を行うなど
@@ -99,7 +99,7 @@ SLIM, LMNtal ShapeType などに応用できないか考える
 \end{frame}
 
 
-\begin{frame}[label={sec:org72b5105}]{Parametrized Moel Checking の応用分野:}
+\begin{frame}[label={sec:org567a4f8}]{Parametrized Moel Checking の応用分野:}
 \begin{itemize}
 \item mutex のアルゴリズム
 \item （CPU の） bus の protocol
@@ -111,7 +111,7 @@ SLIM, LMNtal ShapeType などに応用できないか考える
 \end{frame}
 
 
-\begin{frame}[label={sec:org578ffe5}]{Parametrized Model Checking の重要なファクタ}
+\begin{frame}[label={sec:orgdbfc4c2}]{Parametrized Model Checking の重要なファクタ}
 \begin{description}
 \item[{Components}] プロセスは有限でないかも知れない
 \item[{Topology}] システムはバラバラかも知れないし，直線状・リング・木・グラフかも知れない
@@ -126,7 +126,7 @@ shared variable の書き換えか
 
 
 
-\begin{frame}[label={sec:orgf82b670},fragile]{Parametrized Model Checking の簡単な例題}
+\begin{frame}[label={sec:orgc499298},fragile]{Parametrized Model Checking の簡単な例題}
  \begin{center}
 \includegraphics[width=.9\linewidth]{./images/simple-mutex.png}
 \end{center}
@@ -146,7 +146,7 @@ shared variable の書き換えか
 
 
 
-\begin{frame}[label={sec:org990901c}]{PMC/Backward reachability}
+\begin{frame}[label={sec:org243c4d9}]{PMC/Backward reachability}
 これはBackward reachability で検証可能な例題
 \begin{itemize}
 \item 去年恒川さんが紹介したもの
@@ -158,7 +158,7 @@ shared variable の書き換えか
 
 
 
-\begin{frame}[label={sec:orgf88bed0},fragile]{PMC and LMNtal ShapeType}
+\begin{frame}[label={sec:org94a8444},fragile]{PMC and LMNtal ShapeType}
  ShapeType でも検証可能なはず
 \begin{itemize}
 \item 日誌に書いて，山本さんには話した
@@ -178,7 +178,7 @@ release @@ c :- i, lock.
 \end{frame}
 
 
-\begin{frame}[label={sec:org2c533da}]{今回紹介するもの}
+\begin{frame}[label={sec:orgee95449}]{今回紹介するもの}
 ただし，今回はこれよりももっと難しい例題を扱える，\\
 Regular Model Checking を紹介する
 \begin{itemize}
@@ -189,9 +189,9 @@ Regular Model Checking を紹介する
 
 
 \section{Regular Model Checking の導入}
-\label{sec:org0d3c127}
+\label{sec:org9c2017b}
 
-\begin{frame}[label={sec:org6d41556}]{Regular Model Checking の概要}
+\begin{frame}[label={sec:orgc30ce08}]{Regular Model Checking の概要}
 リングや直線状の形状をしており，\\
 隣接したプロセス間で通信しあうシステムを検証できる
 \begin{itemize}
@@ -216,7 +216,7 @@ RMC において \alert{\alert{safety property は決定可能ではない}}
 \end{frame}
 
 
-\begin{frame}[label={sec:org9bb2889}]{Regular Model Checking の非形式的な定義}
+\begin{frame}[label={sec:org05bd4a2}]{Regular Model Checking の非形式的な定義}
 \begin{description}
 \item[{それぞれのプロセスの local な state}] finite alphabet で表す
 \begin{itemize}
@@ -240,7 +240,7 @@ finite automata
 \end{frame}
 
 
-\begin{frame}[label={sec:org4e6893d}]{関係 \(R\) に関する形式的な定義}
+\begin{frame}[label={sec:org1dca0d3}]{関係 \(R\) に関する形式的な定義}
 \begin{itemize}
 \item \(\Sigma\) は \alert{\alert{alphabet}} の有限集合.
 \item 関係 \(R \subseteq \Sigma \times \Sigma\) と集合 \(A \subseteq \Sigma\) に対して，\\
@@ -257,7 +257,7 @@ finite automata
 \end{frame}
 
 
-\begin{frame}[label={sec:org18574a2}]{Transducer \(T\) の形式的な定義}
+\begin{frame}[label={sec:org6476e9a}]{Transducer \(T\) の形式的な定義}
 \(\Sigma\) 上の transducer \(T\) は \\
 \((Q, q_{init}, \Delta, F)\) なる四つ組の有限状態オートマトン
 \begin{description}
@@ -273,7 +273,7 @@ finite automata
 
 
 
-\begin{frame}[label={sec:org5ba6bcd},fragile]{例題：トークンパッシング}
+\begin{frame}[label={sec:orgc1ddd36},fragile]{例題：トークンパッシング}
  \begin{center}
 \includegraphics[width=.9\linewidth]{./images/token-example.png}
 \end{center}
@@ -288,7 +288,7 @@ finite automata
 
 
 
-\begin{frame}[label={sec:org91d7a9f},fragile]{Transducer \(T\) が受理するもの}
+\begin{frame}[label={sec:org68b10a8},fragile]{Transducer \(T\) が受理するもの}
  Transducer は \((\Sigma \times \Sigma)\) 上の有限長の列 \\
 \((a_1, b_1)(a_2, b_2) \dots (a_n, b_n)\) を受理する
 \begin{itemize}
@@ -304,7 +304,7 @@ Regular relation \(R(T)\) であると定義する
 
 
 
-\begin{frame}[label={sec:orgd4e213e}]{例題：トークンパッシングにおける transducer}
+\begin{frame}[label={sec:orgc1e176b}]{例題：トークンパッシングにおける transducer}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{./images/four-transducer.png}
 \end{center}
@@ -329,7 +329,7 @@ Regular relation \(R(T)\) であると定義する
 \end{frame}
 
 
-\begin{frame}[label={sec:org25b9cdf}]{Regular relation \(R(T)\) に関する略記法}
+\begin{frame}[label={sec:orgf4bb823}]{Regular relation \(R(T)\) に関する略記法}
 \begin{itemize}
 \item \((R(T))^+\) の代わりに，\(R^+(T)\) と書くことにする
 \item 同様に，\(R^+(T), R^*(T), R^i(T)\) と書く
@@ -337,7 +337,7 @@ Regular relation \(R(T)\) であると定義する
 \end{frame}
 
 
-\begin{frame}[label={sec:org4e3539e}]{例題：トークンパッシングの \(R(T)\) の推移}
+\begin{frame}[label={sec:org871aaf8}]{例題：トークンパッシングの \(R(T)\) の推移}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{./images/four-transducer.png}
 \end{center}
@@ -352,9 +352,9 @@ Regular relation \(R(T)\) であると定義する
 
 
 \section{Acceleration Techniques の導入}
-\label{sec:orgcae6314}
+\label{sec:org33ed2b7}
 
-\begin{frame}[label={sec:orgb06f3d3}]{RMC でそもそも何をしたいのか}
+\begin{frame}[label={sec:orgec24d78}]{RMC でそもそも何をしたいのか}
 RMC の一般的な課題は，\\
 Transducer relation から推移閉包を求めること
 \begin{itemize}
@@ -371,7 +371,7 @@ transducer が知りたい
 \end{frame}
 
 
-\begin{frame}[label={sec:org1163416}]{RMC での Safety の検証}
+\begin{frame}[label={sec:org0935d91}]{RMC での Safety の検証}
 入力
 \begin{description}
 \item[{初期状態}] regular set of initial configuration \(I\)
@@ -388,7 +388,7 @@ transducer が知りたい
 \end{frame}
 
 
-\begin{frame}[label={sec:org8b1a01e}]{例題：トークンパッシング}
+\begin{frame}[label={sec:org3bc9293}]{例題：トークンパッシング}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./images/token-example.png}
 \end{center}
@@ -409,7 +409,7 @@ regular set of bad configuration \(B\) は
 
 
 
-\begin{frame}[label={sec:org13a4ba7}]{RMC のフレームワークについてもう少し詳しく}
+\begin{frame}[label={sec:org5da6469}]{RMC のフレームワークについてもう少し詳しく}
 RMC は
 \begin{enumerate}
 \item \(Inv = I \circ R^*(T)\) を計算して
@@ -430,7 +430,7 @@ Transducer \(T\) が与えられた時に，\(R^+(T)\) は一般に計算不可�
 \end{frame}
 
 
-\begin{frame}[label={sec:orgad46fa7}]{例題： transducer の推移}
+\begin{frame}[label={sec:orgc84b8b9}]{例題： transducer の推移}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./images/3-transducer.png}
 \end{center}
@@ -446,7 +446,7 @@ transducer \(T^3\) は上図のようになる
 
 
 
-\begin{frame}[label={sec:org360dbf4}]{例題における推移閉包}
+\begin{frame}[label={sec:org401e06c}]{例題における推移閉包}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./images/n-transitive-transducer.png}
 \end{center}
@@ -459,7 +459,7 @@ transducer \(T^3\) は上図のようになる
 
 
 
-\begin{frame}[label={sec:orge948584}]{推移の計算}
+\begin{frame}[label={sec:orgcfc0548}]{推移の計算}
 もちろん \(T^n\) を \(n = 1, 2, 3, \dots\) について \\
 全て計算するわけにはいかない
 \begin{itemize}
@@ -468,7 +468,7 @@ transducer \(T^3\) は上図のようになる
 \end{frame}
 
 
-\begin{frame}[label={sec:orge6f662f}]{Column Transducer}
+\begin{frame}[label={sec:org513c93d}]{Column Transducer}
 Transducer \(T\) を与えられた時に，
 \begin{description}
 \item[{Column transducer}] \mbox{}\\
@@ -480,7 +480,7 @@ Transducer \(T\) を与えられた時に，
 \end{frame}
 
 
-\begin{frame}[label={sec:orgc03602b}]{Column Transducer の例}
+\begin{frame}[label={sec:org83d0a2b}]{Column Transducer の例}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{./images/column-transducer.png}
 \end{center}
@@ -502,7 +502,7 @@ Transducer \(T\) を与えられた時に，
 
 
 
-\begin{frame}[label={sec:org78ba19a}]{Column Transducer の形式的定義}
+\begin{frame}[label={sec:org5da9821}]{Column Transducer の形式的定義}
 Transducer \(T\) が与えられたとき，
 column transducer は  \(T^{col} = (Q^{col}, q_{init}^{col}, \Delta^{col}, F^{col})\) の四つ組
 \begin{description}
@@ -521,9 +521,9 @@ column transducer は  \(T^{col} = (Q^{col}, q_{init}^{col}, \Delta^{col}, F^{co
 
 
 \section{Quotienting}
-\label{sec:org3587ef3}
+\label{sec:orge26d2d3}
 
-\begin{frame}[label={sec:orgeeab133}]{Quotieting のモチベーション}
+\begin{frame}[label={sec:org5dcf3ef}]{Quotieting のモチベーション}
 Column transducer の問題は \alert{\alert{無限の状態数を持つ}} 可能性があること
 \begin{itemize}
 \item Explicit に生成することはできない
@@ -537,7 +537,7 @@ Column transducer の問題は \alert{\alert{無限の状態数を持つ}} 可�
 
 
 
-\begin{frame}[label={sec:org2c0415e}]{Left/right-copying}
+\begin{frame}[label={sec:org8ddbc93}]{Left/right-copying}
 状態 \(q \in Q\) は以下のような場合に \alert{\alert{left-copying}} という
 
 全ての次のような遷移
@@ -557,7 +557,7 @@ Column transducer の問題は \alert{\alert{無限の状態数を持つ}} 可�
 right-copying も同様に定義する
 \end{frame}
 
-\begin{frame}[label={sec:orgbd617d3}]{left/right-copying な状態の表現}
+\begin{frame}[label={sec:orgd86ad7b}]{left/right-copying な状態の表現}
 要するに，left-copying の状態の prefix はただ入力を出力へコピーして流すだけ
 
 \begin{itemize}
@@ -569,7 +569,7 @@ right-copying も同様に定義する
 \end{frame}
 
 
-\begin{frame}[label={sec:org35ea663}]{合同関係 \(\simeq\) の定義}
+\begin{frame}[label={sec:orgcbf8cad}]{合同関係 \(\simeq\) の定義}
 こうした \alert{\alert{ただコピーするだけのもの}} を無視して\\
 等価性を判定するというのが今回採用する同値関係
 \begin{itemize}
@@ -583,7 +583,7 @@ right-copying も同様に定義する
 
 
 
-\begin{frame}[label={sec:org84a8a12}]{\(\simeq\) 上の同値類の形式的定義}
+\begin{frame}[label={sec:org43cf7e5}]{\(\simeq\) 上の同値類の形式的定義}
 \(\simeq\) 上の同値類は \(e_1 e_2 \dots e_n\) の形をした \alert{\alert{正規表現}} で表す
 \begin{itemize}
 \item ただし，\(e_i\) は以下の3つのうちのどれかの形になる
@@ -615,7 +615,7 @@ right-copying も同様に定義する
 
 
 
-\begin{frame}[label={sec:org15b2ec4}]{\(\simeq\) 上の同値類の形式的定義}
+\begin{frame}[label={sec:org5d0e790}]{\(\simeq\) 上の同値類の形式的定義}
 column \(x\) について，\([x]_\simeq\) で \(x\) の同値類を表す
 \begin{itemize}
 \item \(X, Y\), etc で column の同値類の集合（商集合）を表す
@@ -625,9 +625,9 @@ column \(x\) について，\([x]_\simeq\) で \(x\) の同値類を表す
 
 
 \section{Quotient Transducer の導入}
-\label{sec:org32cc1a9}
+\label{sec:org3976501}
 
-\begin{frame}[label={sec:org06b5ccb}]{Quotient Transducer の概要}
+\begin{frame}[label={sec:org6c4a40d}]{Quotient Transducer の概要}
 \(Q^{col}\) 上の同値関係 \(\simeq\) も定義できたので，\\
 この同値関係を使って，また transducer を定義する
 \begin{itemize}
@@ -636,7 +636,7 @@ column \(x\) について，\([x]_\simeq\) で \(x\) の同値類を表す
 \end{frame}
 
 
-\begin{frame}[label={sec:org2d5538e}]{Quotient Transducer の形式的定義}
+\begin{frame}[label={sec:orge76479d}]{Quotient Transducer の形式的定義}
 \alert{\alert{Quotient transducer}} は \(T^\bullet = (Q^\bullet, q_{init}^\bullet, \Delta^\bullet, F^\bullet)\) の四つ組
 \begin{description}
 \item[{\(Q^\bullet \subseteq Q^{col}/_{\simeq}\)}] columns の同値類の集合
@@ -656,7 +656,7 @@ column \(x\) について，\([x]_\simeq\) で \(x\) の同値類を表す
 
 
 
-\begin{frame}[label={sec:org6a99d21}]{Quotient Transducer の生成}
+\begin{frame}[label={sec:org53f2c8b}]{Quotient Transducer の生成}
 \(T^{col}\) ，つまり \(R^+(T)\)，と同じものを受理する transducer を生成したい
 \begin{itemize}
 \item ただし，\(T^\bullet\) が \alert{\alert{finite state transducer かはわからない}}
@@ -673,7 +673,7 @@ finite state であった場合には停止する手続きを考える
 
 
 
-\begin{frame}[label={sec:orgcc08749}]{前提とする定義：演算子}
+\begin{frame}[label={sec:orgdd5d52d}]{前提とする定義：演算子}
 \begin{enumerate}
 \item 状態 \(q \in Q\) に対して \(q^\oplus\) を以下のように定義する
 \begin{itemize}
@@ -694,7 +694,7 @@ finite state であった場合には停止する手続きを考える
 \end{frame}
 
 
-\begin{frame}[label={sec:org02b46ea}]{\(\star\) の正確な定義}
+\begin{frame}[label={sec:orge27c9cf}]{\(\star\) の正確な定義}
 2 に関してもっと正確には
 \begin{itemize}
 \item colum の同値類を正規表現 \(e_1 \dots e_n\), \(f_1 \dots f_m\) で表現したとき
@@ -713,7 +713,7 @@ finite state であった場合には停止する手続きを考える
 \end{frame}
 
 
-\begin{frame}[label={sec:org1ec1f27}]{Quotient transducer の遷移規則}
+\begin{frame}[label={sec:orge6546b9}]{Quotient transducer の遷移規則}
 同値類の集合 \(X, Y\) について，以下のどちらか満たすとき，
 \(X \overset{(a, b)}{\longrightarrow_\bullet} Y\) と帰納的に定義する
 \begin{enumerate}
@@ -729,7 +729,7 @@ finite state であった場合には停止する手続きを考える
 \end{frame}
 
 
-\begin{frame}[label={sec:org282529c}]{例題：トークンパッシング}
+\begin{frame}[label={sec:orgfd8c88d}]{例題：トークンパッシング}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./images/token-example.png}
 \end{center}
@@ -747,7 +747,7 @@ finite state であった場合には停止する手続きを考える
 
 
 
-\begin{frame}[label={sec:orgdfabaae}]{例題：トークンパッシング}
+\begin{frame}[label={sec:org64fbb8f}]{例題：トークンパッシング}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./images/token-example.png}
 \end{center}
@@ -766,9 +766,9 @@ finite state であった場合には停止する手続きを考える
 
 
 \section{Quotient Transducer の生成手続き}
-\label{sec:orga588c18}
+\label{sec:org93cbff7}
 
-\begin{frame}[label={sec:org1744cb6}]{Quotient Transducer の生成手続き}
+\begin{frame}[label={sec:org7bbd64d}]{Quotient Transducer の生成手続き}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{./images/quoting-rmc.png}
 \end{center}
@@ -788,7 +788,7 @@ W が空になるまで状態の同値類をポップして，\\
 
 
 
-\begin{frame}[label={sec:org16324ba}]{Quotient Transducer の生成手続きの適用例}
+\begin{frame}[label={sec:orgc19f115}]{Quotient Transducer の生成手続きの適用例}
 \begin{enumerate}
 \item まずは初期状態 \(q_L^+\) を W に追加
 \item W から \(q_L^+\) を選択.
@@ -816,7 +816,7 @@ W が空になるまで状態の同値類をポップして，\\
 \end{frame}
 
 
-\begin{frame}[label={sec:orgf0d908c}]{Quotient Transducer の生成手続きの適用結果}
+\begin{frame}[label={sec:orgf37402e}]{Quotient Transducer の生成手続きの適用結果}
 \begin{center}
 \includegraphics[width=0.5\textwidth]{./images/quoting-rmc-result.png}
 \end{center}
@@ -830,9 +830,9 @@ safety の検証， \((I \odot R^*(T)) \cup B = \emptyset\) かどうかの確�
 
 
 \section{Monotomic Abstraction}
-\label{sec:orgbf9d18d}
+\label{sec:org19d27bf}
 
-\begin{frame}[label={sec:orga879f40}]{Monotomic Abstraction とは}
+\begin{frame}[label={sec:orgea62520}]{Monotomic Abstraction とは}
 推移閉包を正確に計算することが難しい場合は \\
 \alert{\alert{over approximation}} を行う
 \begin{itemize}
@@ -849,7 +849,7 @@ wqo を適用できるように過大近似して検証している
 \end{frame}
 
 
-\begin{frame}[label={sec:org5aff0f2}]{量化子付きの RMC}
+\begin{frame}[label={sec:org7b73113}]{量化子付きの RMC}
 全称量化付きの遷移規則を持つシステムの RMC を \\
 直接行うのは難しい
 \begin{itemize}
@@ -862,11 +862,10 @@ wqo を適用できるように過大近似して検証している
 \end{frame}
 
 
-\begin{frame}[label={sec:orgf0fd196}]{例題：量化子付きの Mutex}
+\begin{frame}[label={sec:org1205e20}]{例題：量化子付きの Mutex}
 \begin{center}
 \includegraphics[width=0.3\textwidth]{./images/priority-mutex.png}
 \end{center}
-
 
 
 \begin{description}
@@ -881,7 +880,8 @@ wqo を適用できるように過大近似して検証している
 \end{frame}
 
 
-\begin{frame}[label={sec:org528a844}]{例題：量化子付きの Mutex}
+
+\begin{frame}[label={sec:orgb19e4e8}]{例題：量化子付きの Mutex}
 全てのプロセスが直線状につながっているという前提
 
 この中の位置がプロセスの優先度に対応している
@@ -900,10 +900,10 @@ wqo を適用できるように過大近似して検証している
 
 
 \section{量化子付きの遷移を含む例題の ShapeType エンコード}
-\label{sec:org2bb755a}
+\label{sec:orgce1eabb}
 
 
-\begin{frame}[label={sec:orge5b0515}]{量化子付きの遷移を含む例題の ShapeType エンコード}
+\begin{frame}[label={sec:org28cdcf4}]{量化子付きの遷移を含む例題の ShapeType エンコード}
 LMNtal ShapeType は文脈自由よりも遥かに \alert{\alert{強力な文法を扱える}}
 \begin{itemize}
 \item （少なくとも見た目だけは） \alert{\alert{RMC の完全上位互換}} のように見える
@@ -929,7 +929,7 @@ CSLMNtal の導入もまだ始めていない
 
 
 
-\begin{frame}[label={sec:orgb626b9e}]{存在量化子付きの遷移を含む例題の ShapeType エンコード}
+\begin{frame}[label={sec:orga5f7871}]{存在量化子付きの遷移を含む例題の ShapeType エンコード}
 存在量化子は自明
 \begin{description}
 \item[{RMC では}] \mbox{}\\
@@ -941,7 +941,7 @@ CSLMNtal の導入もまだ始めていない
 \end{frame}
 
 
-\begin{frame}[label={sec:orgdca530c}]{全称量化子付きの遷移を含む例題の ShapeType エンコード}
+\begin{frame}[label={sec:orgcc241df}]{全称量化子付きの遷移を含む例題の ShapeType エンコード}
 全称量化子はそんなに自明でない？
 \begin{itemize}
 \item 「何かが無い場合に遷移する」という規則は直接は書けないが \dots{}
@@ -957,7 +957,7 @@ CSLMNtal の導入もまだ始めていない
 
 
 
-\begin{frame}[label={sec:orge01eb95}]{簡略化したプロトコル}
+\begin{frame}[label={sec:orge5dfc00}]{簡略化したプロトコル}
 \begin{itemize}
 \item n 個のプロセスがある
 \item それぞれのプロセスは
@@ -979,7 +979,7 @@ CSLMNtal の導入もまだ始めていない
 
 
 
-\begin{frame}[label={sec:orgf5075e6},fragile]{全称量化付き ShapeType：システムの遷移規則}
+\begin{frame}[label={sec:orgd430723},fragile]{全称量化付き ShapeType：システムの遷移規則}
  \footnotesize
 \begin{verbatim}
 % r は左側が全て i ならクリティカルセクションへ遷移可能
@@ -998,7 +998,7 @@ H = forallL_IL([i | forallR_IR(T)]) :- H = [r | T].
 
 
 
-\begin{frame}[label={sec:orgfb89d01},fragile]{全称量化付き ShapeType：システムの生成規則}
+\begin{frame}[label={sec:org3fa012c},fragile]{全称量化付き ShapeType：システムの生成規則}
  \tiny
 \begin{verbatim}
 defshape ps {
@@ -1029,7 +1029,7 @@ defshape ps {
 
 
 
-\begin{frame}[label={sec:org2dd2e4c}]{全称量化付き ShapeType}
+\begin{frame}[label={sec:orga9e7850}]{全称量化付き ShapeType}
 例題の感想
 \begin{itemize}
 \item （文法的に）あっているのかもよくわからない
@@ -1043,9 +1043,9 @@ defshape ps {
 
 
 \section{まとめ}
-\label{sec:org429b45c}
+\label{sec:org753927b}
 
-\begin{frame}[label={sec:org0861b58}]{まとめ}
+\begin{frame}[label={sec:org5e65862}]{まとめ}
 RMC の手法がそのまま LMNtal に適用できるとは\textsubscript{あまり}思えないが\\
 transducer という概念は重要だと思う
 \begin{itemize}
@@ -1068,7 +1068,7 @@ ShapeType は表現力的には超強力だということが理解できた
 \end{frame}
 
 
-\begin{frame}[label={sec:org6d48b41}]{参考文献}
+\begin{frame}[label={sec:org3ea43d1}]{参考文献}
 Handbook of Model Checking
 \begin{itemize}
 \item \url{https://link.springer.com/book/10.1007/978-3-319-10575-8}
