@@ -4,11 +4,11 @@
 
 
 - [sano20210720.pdf](sano20210720.pdf)
-    - プレゼン資料
+    - スライド
 
 
 - [github-pages](https://sano-jin.github.io/seminar20210720/)
-    - org から生成した web-page
+    - org から生成した web page
 
 
 - [sano20210720.org](sano20210720.org)
