@@ -7,8 +7,8 @@
     - プレゼン資料
 
 
-- [index.html](index.html)
-    - html ファイル
+- [github-pages](https://sano-jin.github.io/seminar20210720/)
+    - org から生成した web-page
 
 
 - [sano20210720.org](sano20210720.org)
