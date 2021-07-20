@@ -1,0 +1,43 @@
+% mutex
+
+shapedef ps {
+    ps :- head(<i*>).
+
+    H = <i*> :- H = [i | <i*>].
+    H = <i*> :- H = forallL_I(<i*>).
+
+    H = <i*> :- H = <(i|r)*>.
+
+    H = <(i|r)*> :- H = [i | <(i|r)*>].     % 削れるかも
+    H = <(i|r)*> :- H = [r | <(i|r)*>].
+    H = <(i|r)*> :- forallL_IR(<(i|r)*>).
+
+    H = <(i|r)*> :- H = <(i|r)*c?>.
+
+    H = <(i|r)*c?> :- H = [i | <(i|r)*c?>]. % 削れるかも
+    H = <(i|r)*c?> :- H = [r | <(i|r)*c?>]. % 削れるかも
+    H = <(i|r)*c?> :- H = [c | <(i|r)*c?(i|r)*>]. % cs に入るのは一つ
+
+    H = <(i|r)*c?> :- H = <(i|r)*c?(i|r)*>.
+    H = <(i|r)*c?(i|r)*> :- H = [i | <(i|r)*c?(i|r)*>].
+    H = <(i|r)*c?(i|r)*> :- H = [r | <(i|r)*c?(i|r)*>].
+    H = <(i|r)*c?(i|r)*> :- H = forallR_IR(<(i|r)*c?(i|r)*>]).
+
+    H = <(i|r)*c?(i|r)*> :- H = nil.
+}
+
+
+% r は左側が全て i ならクリティカルセクションへ遷移可能
+aquire @@
+H = forallL_I([r | T]) :- H = [r | T].
+
+
+% クリティカルセクションを離れる
+leave @@
+H = [c | T]  :- H = [i | T].
+
+
+% 他に誰もクリティカルセクションに入っていないのなら，i は r になって良い
+H = forallL_IL([i | forallR_IR(T)]) :- H = [r | T].
+
+

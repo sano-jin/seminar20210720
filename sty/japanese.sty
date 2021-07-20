@@ -1,0 +1,54 @@
+% These are for Japanese
+% You can ommit this if you do not need to print Japanese.
+
+\usepackage{unicode-math}
+\setmathfont{latinmodern-math.otf}
+\setmathfont[range=\setminus]{Asana-Math.otf}
+
+\usepackage{xeCJK}
+
+\setsansfont[
+  Path=/Users/sano/work/express-beamer/font/HaranoAji/,
+  UprightFont=HaranoAjiGothic-Normal,
+  ItalicFont=HaranoAjiGothic-Normal,
+  BoldFont=HaranoAjiGothic-Medium,
+  BoldItalicFont=HaranoAjiGothic-Normal,
+  Extension = .otf
+] {HaranoAjiGothic-Normal}
+
+\setmainfont[Path=/Users/sano/work/express-beamer/font/HaranoAji/,
+  UprightFont=HaranoAjiGothic-Normal,
+  ItalicFont=HaranoAjiGothic-Normal,
+  BoldFont=HaranoAjiGothic-Medium,
+  BoldItalicFont=HaranoAjiGothic-Normal,
+  Extension = .otf
+] {HaranoAjiGothic-Normal}
+
+\setCJKmainfont[Path=/Users/sano/work/express-beamer/font/HaranoAji/,
+  UprightFont=HaranoAjiGothic-Normal,
+  ItalicFont=HaranoAjiGothic-Normal,
+  BoldFont=HaranoAjiGothic-Medium,
+  BoldItalicFont=HaranoAjiGothic-Normal,
+  Extension = .otf
+] {HaranoAjiGothic-Normal}
+
+
+\usepackage{zxjatype}
+
+\setmonofont[Scale = 1,
+  Path = ./font/Inconsolata/,
+  BoldFont = Inconsolata-Bold.ttf,
+  ItalicFont = ../Roboto/Roboto-Italic.ttf,
+  BoldItalicFont = Inconsolata-Bold.ttf,
+]{Inconsolata-Regular.ttf}
+
+\setjamonofont[Scale = 0.9,
+  Path = ./font/HaranoAji/,
+  BoldFont = ../HaranoAji/HaranoAjiGothic-Bold.otf,
+  ItalicFont = ../HaranoAji/HaranoAjiGothic-Normal.otf,
+  BoldItalicFont  = ../HaranoAji/HaranoAjiGothic-Bold.otf,
+] {HaranoAjiGothic-Normal.otf}
+
+
+\usepackage{sty/jlisting}
+

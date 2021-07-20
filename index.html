@@ -1,0 +1,1788 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-07-20 Tue 14:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Regular Model Cheching の紹介</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="佐野 仁" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Regular Model Cheching の紹介
+<br />
+<span class="subtitle">Parameteterized model verification</span>
+</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgfe25be7">1. Introduction</a>
+<ul>
+<li><a href="#orgd78047b">1.1. 参考文献</a></li>
+<li><a href="#orge81b491">1.2. 背景：LMNtal のモデル検査</a></li>
+<li><a href="#org51270c2">1.3. （とりあえずの）方針</a></li>
+</ul>
+</li>
+<li><a href="#org8b1895a">2. Parametrized Model Checking の概要</a>
+<ul>
+<li><a href="#orgf2a275a">2.1. Parametrized Model Checking とは</a></li>
+<li><a href="#orgfe29e90">2.2. Parametrized Moel Checking の応用分野:</a></li>
+<li><a href="#orgb72f126">2.3. Parametrized Model Checking の重要なファクタ</a></li>
+<li><a href="#org9370a0f">2.4. Parametrized Model Checking の簡単な例題</a></li>
+<li><a href="#orgc7d8ff6">2.5. PMC/Backward reachability</a></li>
+<li><a href="#org282ab72">2.6. PMC and LMNtal ShapeType</a></li>
+<li><a href="#org34aa490">2.7. 今回紹介するもの</a></li>
+</ul>
+</li>
+<li><a href="#org0124480">3. Regular Model Checking の導入</a>
+<ul>
+<li><a href="#org754656e">3.1. Regular Model Checking の概要</a></li>
+<li><a href="#org406036f">3.2. Regular Model Checking の非形式的な定義</a></li>
+<li><a href="#orgf8d00a8">3.3. 関係 \(R\) に関する形式的な定義</a></li>
+<li><a href="#org55027bc">3.4. Transducer \(T\) の形式的な定義</a></li>
+<li><a href="#org2e7b2ce">3.5. 例題：トークンパッシング</a></li>
+<li><a href="#org367f462">3.6. Transducer \(T\) が受理するもの</a></li>
+<li><a href="#org6503f46">3.7. 例題：トークンパッシングにおける transducer</a></li>
+<li><a href="#org2ac6e8a">3.8. Regular relation \(R(T)\) に関する略記法</a></li>
+<li><a href="#org7a58b23">3.9. 例題：トークンパッシングの \(R(T)\) の推移</a></li>
+</ul>
+</li>
+<li><a href="#orgd994a36">4. Acceleration Techniques の導入</a>
+<ul>
+<li><a href="#org08c20e6">4.1. RMC でそもそも何をしたいのか</a></li>
+<li><a href="#org00f643e">4.2. RMC での Safety の検証</a></li>
+<li><a href="#org5e7a8df">4.3. 例題：トークンパッシング</a></li>
+<li><a href="#org2b8423e">4.4. RMC のフレームワークについてもう少し詳しく</a></li>
+<li><a href="#org53b5b28">4.5. 例題： transducer の推移</a></li>
+<li><a href="#orgd34d55c">4.6. 例題における推移閉包</a></li>
+<li><a href="#org480eb24">4.7. 推移の計算</a></li>
+<li><a href="#org902b1fa">4.8. Column Transducer</a></li>
+<li><a href="#orgf220dc6">4.9. Column Transducer の例</a></li>
+<li><a href="#org517e7a3">4.10. Column Transducer の形式的定義</a></li>
+</ul>
+</li>
+<li><a href="#orgeca9114">5. Quotienting</a>
+<ul>
+<li><a href="#org8ebb232">5.1. Quotieting のモチベーション</a></li>
+<li><a href="#org4e1c9f1">5.2. Left/right-copying</a></li>
+<li><a href="#org1c081d4">5.3. left/right-copying な状態の表現</a></li>
+<li><a href="#orgb0aeacc">5.4. 合同関係 \(\simeq\) の定義</a></li>
+<li><a href="#orge36178c">5.5. \(\simeq\) 上の同値類の形式的定義</a></li>
+<li><a href="#org58ed369">5.6. \(\simeq\) 上の同値類の形式的定義</a></li>
+</ul>
+</li>
+<li><a href="#org26f9eb7">6. Quotient Transducer の導入</a>
+<ul>
+<li><a href="#org28e7356">6.1. Quotient Transducer の概要</a></li>
+<li><a href="#org7bc9fa5">6.2. Quotient Transducer の形式的定義</a></li>
+<li><a href="#orgff87995">6.3. Quotient Transducer の生成</a></li>
+<li><a href="#org77fb385">6.4. 前提とする定義：演算子</a></li>
+<li><a href="#org364386f">6.5. \(\star\) の正確な定義</a></li>
+<li><a href="#orgf515b3e">6.6. Quotient transducer の遷移規則</a></li>
+<li><a href="#org2579e4d">6.7. 例題：トークンパッシング</a></li>
+<li><a href="#org93933ed">6.8. 例題：トークンパッシング</a></li>
+</ul>
+</li>
+<li><a href="#org72dba55">7. Quotient Transducer の生成手続き</a>
+<ul>
+<li><a href="#orga58ed3e">7.1. Quotient Transducer の生成手続き</a></li>
+<li><a href="#org7c8055f">7.2. Quotient Transducer の生成手続きの適用例</a></li>
+<li><a href="#orgabbf594">7.3. Quotient Transducer の生成手続きの適用結果</a></li>
+</ul>
+</li>
+<li><a href="#org179274c">8. Monotomic Abstraction</a>
+<ul>
+<li><a href="#org23fb960">8.1. Monotomic Abstraction とは</a></li>
+<li><a href="#orgfc79ccf">8.2. 量化子付きの RMC</a></li>
+<li><a href="#org0f56d68">8.3. 例題：量化子付きの Mutex</a></li>
+<li><a href="#org97b81f8">8.4. 例題：量化子付きの Mutex</a></li>
+</ul>
+</li>
+<li><a href="#org3b65f39">9. 量化子付きの遷移を含む例題の ShapeType エンコード</a>
+<ul>
+<li><a href="#org145d14e">9.1. 量化子付きの遷移を含む例題の ShapeType エンコード</a></li>
+<li><a href="#org7bf7760">9.2. 存在量化子付きの遷移を含む例題の ShapeType エンコード</a></li>
+<li><a href="#org54f5c5d">9.3. 全称量化子付きの遷移を含む例題の ShapeType エンコード</a></li>
+<li><a href="#org7f6d6ec">9.4. 簡略化したプロトコル</a></li>
+<li><a href="#org015d19a">9.5. 全称量化付き ShapeType：システムの遷移規則</a></li>
+<li><a href="#org2797336">9.6. 全称量化付き ShapeType：システムの生成規則</a></li>
+<li><a href="#org699dfe1">9.7. 全称量化付き ShapeType</a></li>
+</ul>
+</li>
+<li><a href="#org59f45fc">10. まとめ</a>
+<ul>
+<li><a href="#org99dc204">10.1. まとめ</a></li>
+<li><a href="#org38d4ced">10.2. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgfe25be7" class="outline-2">
+<h2 id="orgfe25be7"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgd78047b" class="outline-3">
+<h3 id="orgd78047b"><span class="section-number-3">1.1</span> 参考文献</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Handbook of Model Checking
+</p>
+<ul class="org-ul">
+<li><a href="https://link.springer.com/book/10.1007/978-3-319-10575-8">https://link.springer.com/book/10.1007/978-3-319-10575-8</a></li>
+</ul>
+
+
+<p>
+この本の Chapter 21: Model Checing Parameteterized Systems を紹介する
+</p>
+<ul class="org-ul">
+<li>その中でも Section 3: Regular Model Checking を中心に扱う</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orge81b491" class="outline-3">
+<h3 id="orge81b491"><span class="section-number-3">1.2</span> 背景：LMNtal のモデル検査</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+SLIM は Model Checking が可能
+</p>
+<ul class="org-ul">
+<li>ただし，全状態を列挙しないと健全な検査はできない
+<ul class="org-ul">
+<li>無限の状態空間を持つモデル・パラメータの入ったモデルは<br />
+扱えない</li>
+</ul></li>
+<li>何らかの <b><b>Abstraction</b></b> を入れたい</li>
+</ul>
+
+
+<p>
+LMNtal ShapeType は文脈自由の生成規則によって<br />
+生成されるモデルを検査可能
+</p>
+<ul class="org-ul">
+<li>抽象化の仕組みを備えている</li>
+<li>が，まだ未知数なものも多い（性能・表現力）</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org51270c2" class="outline-3">
+<h3 id="org51270c2"><span class="section-number-3">1.3</span> （とりあえずの）方針</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+既存の <b><b>Parameteterized Model Checking</b></b> について調査し，<br />
+SLIM, LMNtal ShapeType などに応用できないか考える
+</p>
+<ul class="org-ul">
+<li>今は調査の段階</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org8b1895a" class="outline-2">
+<h2 id="org8b1895a"><span class="section-number-2">2</span> Parametrized Model Checking の概要</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgf2a275a" class="outline-3">
+<h3 id="orgf2a275a"><span class="section-number-3">2.1</span> Parametrized Model Checking とは</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+パラメータの入ったモデルを扱う
+</p>
+<ul class="org-ul">
+<li>N 個のプロセスが相互排他制御を行うなど</li>
+</ul>
+
+
+<p>
+パラメータに許される全ての値について，<br />
+モデルが仕様を満たすことを検証する
+</p>
+<ul class="org-ul">
+<li>1 個のプロセスなら OK，2 個でも OK，3 個でも OK, &#x2026;</li>
+<li>無限のパターンが存在する場合もある</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgfe29e90" class="outline-3">
+<h3 id="orgfe29e90"><span class="section-number-3">2.2</span> Parametrized Moel Checking の応用分野:</h3>
+<div class="outline-text-3" id="text-2-2">
+<ul class="org-ul">
+<li>mutex のアルゴリズム</li>
+<li>（CPU の） bus の protocol</li>
+<li>Network protocol</li>
+<li>Cache coherence protocol</li>
+<li>web services</li>
+<li>sensor network</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgb72f126" class="outline-3">
+<h3 id="orgb72f126"><span class="section-number-3">2.3</span> Parametrized Model Checking の重要なファクタ</h3>
+<div class="outline-text-3" id="text-2-3">
+<dl class="org-dl">
+<dt>Components</dt><dd>プロセスは有限でないかも知れない</dd>
+<dt>Topology</dt><dd>システムはバラバラかも知れないし，直線状・リング・木・グラフかも知れない</dd>
+<dt>Communication primitives</dt><dd>\mbox{}<br />
+randezvous （二つ以上のものが同時に書き換わる）か<br />
+shared variable の書き換えか
+<ul class="org-ul">
+<li>また，量化子 <b><b>global condition</b></b> が付くかも知れない</li>
+</ul></dd>
+</dl>
+</div>
+</div>
+
+
+
+<div id="outline-container-org9370a0f" class="outline-3">
+<h3 id="org9370a0f"><span class="section-number-3">2.4</span> Parametrized Model Checking の簡単な例題</h3>
+<div class="outline-text-3" id="text-2-4">
+
+<div id="org10280ee" class="figure">
+<p><img src="./images/simple-mutex.png" alt="simple-mutex.png" />
+</p>
+</div>
+
+<ul class="org-ul">
+<li>(a). 一つのプロセスの状態遷移
+<ul class="org-ul">
+<li><code>Initial state</code> \(\longleftrightarrow\) <code>Critical section</code></li>
+</ul></li>
+<li>(b). Lock の状態遷移
+<ul class="org-ul">
+<li><code>Free</code> \(\longleftrightarrow\) <code>Busy</code></li>
+</ul></li>
+<li>(c). Lock と n 個のプロセス</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgc7d8ff6" class="outline-3">
+<h3 id="orgc7d8ff6"><span class="section-number-3">2.5</span> PMC/Backward reachability</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+これはBackward reachability で検証可能な例題
+</p>
+<ul class="org-ul">
+<li>去年恒川さんが紹介したもの
+<ul class="org-ul">
+<li><a href="https://www.ueda.info.waseda.ac.jp/localpage/seminars/wiki/index.php?plugin=attach&amp;refer=Schedule%2F2020Autumn&amp;openfile=tsunekawa20201215.pdf">https://www.ueda.info.waseda.ac.jp/localpage/seminars/wiki/index.php?plugin=attach&amp;refer=Schedule%2F2020Autumn&amp;openfile=tsunekawa20201215.pdf</a></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org282ab72" class="outline-3">
+<h3 id="org282ab72"><span class="section-number-3">2.6</span> PMC and LMNtal ShapeType</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+ShapeType でも検証可能なはず
+</p>
+<ul class="org-ul">
+<li>日誌に書いて，山本さんには話した</li>
+<li>（でもダメだったらしい．調査が必要かも）</li>
+</ul>
+
+
+<pre class="example">
+defshape ps {
+  ps :- ps, i.
+  ps :- lock.  % まだ誰もロックを獲得していない
+  ps :- c.     % クリティカルセクションへ入った
+}
+acquire @@ i, lock :- c.
+release @@ c :- i, lock.
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-org34aa490" class="outline-3">
+<h3 id="org34aa490"><span class="section-number-3">2.7</span> 今回紹介するもの</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+ただし，今回はこれよりももっと難しい例題を扱える，<br />
+Regular Model Checking を紹介する
+</p>
+<ul class="org-ul">
+<li>直線・リング状のシステムを扱える</li>
+<li>遷移規則に量化子をつけることもできる</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org0124480" class="outline-2">
+<h2 id="org0124480"><span class="section-number-2">3</span> Regular Model Checking の導入</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org754656e" class="outline-3">
+<h3 id="org754656e"><span class="section-number-3">3.1</span> Regular Model Checking の概要</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+リングや直線状の形状をしており，<br />
+隣接したプロセス間で通信しあうシステムを検証できる
+</p>
+<ul class="org-ul">
+<li>今回扱うのは直線状のもの</li>
+</ul>
+
+
+
+<p>
+直線状のシステムでは，その位置を優先度と見做して検査可能
+</p>
+<ul class="org-ul">
+<li>優先度付きのプロトコルの検証が可能</li>
+</ul>
+
+
+<p>
+\hspace{1em}
+</p>
+
+<p>
+RMC において <b><b>safety property は決定可能ではない</b></b>
+</p>
+<ul class="org-ul">
+<li>Acceleration technique などを用いることで<br />
+解けるようになる問題はある</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org406036f" class="outline-3">
+<h3 id="org406036f"><span class="section-number-3">3.2</span> Regular Model Checking の非形式的な定義</h3>
+<div class="outline-text-3" id="text-3-2">
+<dl class="org-dl">
+<dt>それぞれのプロセスの local な state</dt><dd>finite alphabet で表す
+<ul class="org-ul">
+<li>e.g. \(\{a, b, c\}\)</li>
+</ul></dd>
+<dt>システムの構成</dt><dd>word（文字列）で表す
+<ul class="org-ul">
+<li>e.g. \(abbc\) : 一番目のプロセスは状態 \(a\)，二番目のプロセスは状態 \(b\)，&#x2026;</li>
+</ul></dd>
+<dt>システムの構成の集合</dt><dd>finite automata（または正規表現） で表す
+<ul class="org-ul">
+<li>e.g. \(ab^*c\)</li>
+</ul></dd>
+<dt>遷移 = <b><b>finite-state transducer</b></b></dt><dd>\mbox{}<br />
+ある状態からある状態へ遷移するか判定する<br />
+finite automata
+<ul class="org-ul">
+<li>e.g. \(abbc\) は \(abcc\) に遷移可能か？ \thusmark yes/no</li>
+</ul></dd>
+</dl>
+</div>
+</div>
+
+
+<div id="outline-container-orgf8d00a8" class="outline-3">
+<h3 id="orgf8d00a8"><span class="section-number-3">3.3</span> 関係 \(R\) に関する形式的な定義</h3>
+<div class="outline-text-3" id="text-3-3">
+<ul class="org-ul">
+<li>\(\Sigma\) は <b><b>alphabet</b></b> の有限集合.</li>
+<li>関係 \(R \subseteq \Sigma \times \Sigma\) と集合 \(A \subseteq \Sigma\) に対して，<br />
+\(A \circ R := \{b | \exists a. (a \in A) \land ((a, b) \in R)\}\) を定義する
+<ul class="org-ul">
+<li>要は \(A\) に含まれている状態から遷移できる状態の集合</li>
+</ul></li>
+<li>関係 \(R, R' \subseteq \Sigma \times \Sigma\) に対して，合成
+\(R \circ R' := \{(a_1, a_2) | \exists b. ((a_1, b) \in R) \land ((b, a_2) \in R')\}\)
+を定義する</li>
+<li>\(R^0 = \{(a, a) | a \in \Sigma\}\), \(R^{i + 1} = R^i \circ R\) と定義する</li>
+<li>\(R^* := \bigcup_{i \geq 0} R^i\), \(R^+ := \bigcup_{i \geq 1} R^i\)</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org55027bc" class="outline-3">
+<h3 id="org55027bc"><span class="section-number-3">3.4</span> Transducer \(T\) の形式的な定義</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+\(\Sigma\) 上の transducer \(T\) は <br />
+\((Q, q_{init}, \Delta, F)\) なる四つ組の有限状態オートマトン
+</p>
+<dl class="org-dl">
+<dt>有限状態</dt><dd>\(Q\)</dd>
+<dt>初期状態</dt><dd>\(q_{init} \in Q\)</dd>
+<dt>遷移関係</dt><dd>\(\Delta \subseteq Q \times (\Sigma \times \Sigma) \times Q\)
+<ul class="org-ul">
+<li>\((\Sigma \times \Sigma)\) なのは，入力に alphabet を二つ受け取って，状態遷移するから</li>
+</ul></dd>
+<dt>受理状態</dt><dd>\(F \subseteq Q\)</dd>
+</dl>
+</div>
+</div>
+
+
+
+<div id="outline-container-org2e7b2ce" class="outline-3">
+<h3 id="org2e7b2ce"><span class="section-number-3">3.5</span> 例題：トークンパッシング</h3>
+<div class="outline-text-3" id="text-3-5">
+
+<div id="org93f4d9f" class="figure">
+<p><img src="./images/token-example.png" alt="token-example.png" />
+</p>
+</div>
+
+
+<p>
+トークン <code>t</code> を左から右に垂れ流すだけの例題
+</p>
+<ul class="org-ul">
+<li>初期状態では一番左のみ <code>t</code> が存在する</li>
+<li><code>t</code> を一つ右にずらす遷移を認める transducer も定義</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org367f462" class="outline-3">
+<h3 id="org367f462"><span class="section-number-3">3.6</span> Transducer \(T\) が受理するもの</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+Transducer は \((\Sigma \times \Sigma)\) 上の有限長の列 <br />
+\((a_1, b_1)(a_2, b_2) \dots (a_n, b_n)\) を受理する
+</p>
+<ul class="org-ul">
+<li>Transducer が受理するものを言語 \(L(T)\) と呼ぶ</li>
+<li>また，Transducer が受理するものを <code>unzip</code> した二つの文字列は <br />
+Regular relation \(R(T)\) であると定義する
+<ul class="org-ul">
+<li>\((a_1, b_1) \dots (a_n, b_n) \in L(T)\) なら，\((a_1 \dots a_n, b_1 \dots b_n) \in R(T)\)</li>
+<li>システムの遷移関係を表す</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org6503f46" class="outline-3">
+<h3 id="org6503f46"><span class="section-number-3">3.7</span> 例題：トークンパッシングにおける transducer</h3>
+<div class="outline-text-3" id="text-3-7">
+
+<div id="orge7eeb44" class="figure">
+<p><img src="./images/four-transducer.png" alt="four-transducer.png" />
+</p>
+</div>
+
+
+<dl class="org-dl">
+<dt>\(\rho_1, \dots, \rho_4\)</dt><dd>Transducer にそれぞれ異なる入力を与えて<br />
+走らせた結果</dd>
+<dt>わかること</dt><dd>システムには &hellip;
+<ol class="org-ol">
+<li>\((t, n)(n, t)(n, n)(n, n)(n, n)\) という遷移が許される
+<ul class="org-ul">
+<li>\((tnnnn, ntnnn) \in R(T)\)</li>
+</ul></li>
+<li>\((n, n)(t, n)(n, t)(n, n)(n, n)\) という遷移も OK
+<ul class="org-ul">
+<li>\((ntnnn, nntnn) \in R(T)\) は OK</li>
+</ul></li>
+<li>&hellip;</li>
+</ol></dd>
+</dl>
+</div>
+</div>
+
+
+<div id="outline-container-org2ac6e8a" class="outline-3">
+<h3 id="org2ac6e8a"><span class="section-number-3">3.8</span> Regular relation \(R(T)\) に関する略記法</h3>
+<div class="outline-text-3" id="text-3-8">
+<ul class="org-ul">
+<li>\((R(T))^+\) の代わりに，\(R^+(T)\) と書くことにする</li>
+<li>同様に，\(R^+(T), R^*(T), R^i(T)\) と書く</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org7a58b23" class="outline-3">
+<h3 id="org7a58b23"><span class="section-number-3">3.9</span> 例題：トークンパッシングの \(R(T)\) の推移</h3>
+<div class="outline-text-3" id="text-3-9">
+
+<div id="org984e32c" class="figure">
+<p><img src="./images/four-transducer.png" alt="four-transducer.png" />
+</p>
+</div>
+
+<p>
+\((tnnnn, ntnnn), (ntnnn, nntnn), \dots, (nnntn, nnnnt) \in R(T)\)
+</p>
+<ul class="org-ul">
+<li>従って， \((tnnnn, nnnnt) \in R^4(T)\)</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgd994a36" class="outline-2">
+<h2 id="orgd994a36"><span class="section-number-2">4</span> Acceleration Techniques の導入</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org08c20e6" class="outline-3">
+<h3 id="org08c20e6"><span class="section-number-3">4.1</span> RMC でそもそも何をしたいのか</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+RMC の一般的な課題は，<br />
+Transducer relation から推移閉包を求めること
+</p>
+<ul class="org-ul">
+<li>transducer \(T\) から，\(R(T^+) = R^+(T)\) となる \(T^+\) を求めたい</li>
+<li><p>
+要は到達可能な全ての状態への遷移を受理する <br />
+transducer が知りたい
+</p>
+
+<p>
+\(T^+\) さえ求まれば，到達可能な状態に <br />
+仕様を満たさないものが存在しないか（safe）が判定できる
+</p>
+<ul class="org-ul">
+<li>次ページから</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org00f643e" class="outline-3">
+<h3 id="org00f643e"><span class="section-number-3">4.2</span> RMC での Safety の検証</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+入力
+</p>
+<dl class="org-dl">
+<dt>初期状態</dt><dd>regular set of initial configuration \(I\)</dd>
+<dt>違反状態</dt><dd>regular set of bad configuration \(B\)</dd>
+<dt>遷移規則</dt><dd>transducer \(T\)</dd>
+</dl>
+
+<p>
+を与えられて，
+</p>
+<ul class="org-ul">
+<li>\(I\) から \(R(T)\) を辿って，
+\(B\) へ到達できるパスが存在するか？</li>
+</ul>
+<p>
+を計算する
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org5e7a8df" class="outline-3">
+<h3 id="org5e7a8df"><span class="section-number-3">4.3</span> 例題：トークンパッシング</h3>
+<div class="outline-text-3" id="text-4-3">
+
+<div id="org525ae89" class="figure">
+<p><img src="./images/token-example.png" alt="token-example.png" />
+</p>
+</div>
+
+
+<p>
+regular set of initial configuration \(I\) は
+</p>
+<ul class="org-ul">
+<li>\(t n^*\)</li>
+</ul>
+
+
+<p>
+regular set of bad configuration \(B\) は
+</p>
+<ul class="org-ul">
+<li>\((t + n)^* t (t + n)^* t (t + n)\)</li>
+<li>トークンが二つ以上ある状態はエラー</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org2b8423e" class="outline-3">
+<h3 id="org2b8423e"><span class="section-number-3">4.4</span> RMC のフレームワークについてもう少し詳しく</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+RMC は
+</p>
+<ol class="org-ol">
+<li>\(Inv = I \circ R^*(T)\) を計算して</li>
+<li>\(Inv \cup B = \emptyset\) であるかを確認する</li>
+</ol>
+
+
+<p>
+\(R^*(T) = \{(a, a) | a \in \Sigma\} \cup R(T^+)\) なので
+<b><b>\(T^+\) さえ計算できれば良い</b></b>
+</p>
+
+
+<p>
+Transducer \(T\) が与えられた時に，\(R^+(T)\) は一般に計算不可能
+</p>
+<ul class="org-ul">
+<li>そもそも有限でない可能性もある</li>
+<li>なので，（\(R^+(T)\) ではなく）\(T^+\) を計算する手法，<br />
+<b><b>Acceleration</b></b> を紹介する</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org53b5b28" class="outline-3">
+<h3 id="org53b5b28"><span class="section-number-3">4.5</span> 例題： transducer の推移</h3>
+<div class="outline-text-3" id="text-4-5">
+
+<div id="org03ba2f1" class="figure">
+<p><img src="./images/3-transducer.png" alt="3-transducer.png" />
+</p>
+</div>
+
+<p>
+例題において，\(T^n\) は n 回トークンが右に伝わるような遷移
+</p>
+
+<p>
+transducer \(T^3\) は上図のようになる
+</p>
+<ul class="org-ul">
+<li>トークンを三つ右にずらす遷移（を受理する）</li>
+<li>\((n^* \; tnn \; n^*, n^* \; nnt \; n^*) = R^3(T) = R(T^3)\)</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgd34d55c" class="outline-3">
+<h3 id="orgd34d55c"><span class="section-number-3">4.6</span> 例題における推移閉包</h3>
+<div class="outline-text-3" id="text-4-6">
+
+<div id="orgd5abd25" class="figure">
+<p><img src="./images/n-transitive-transducer.png" alt="n-transitive-transducer.png" />
+</p>
+</div>
+
+<p>
+\(T^+\) はトークンが一回以上右に伝わるような全ての遷移（を受理する）
+</p>
+<ul class="org-ul">
+<li>\((n^* \; t \; n^* \; n^* , n^* \; n^* \; t \; n^*) = R^+(T) = R(T^+)\)</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org480eb24" class="outline-3">
+<h3 id="org480eb24"><span class="section-number-3">4.7</span> 推移の計算</h3>
+<div class="outline-text-3" id="text-4-7">
+<p>
+もちろん \(T^n\) を \(n = 1, 2, 3, \dots\) について <br />
+全て計算するわけにはいかない
+</p>
+<ul class="org-ul">
+<li>\(R^+(T)\) を受理する <i>column transducer</i> \(T^{col}\) を導入する</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org902b1fa" class="outline-3">
+<h3 id="org902b1fa"><span class="section-number-3">4.8</span> Column Transducer</h3>
+<div class="outline-text-3" id="text-4-8">
+<p>
+Transducer \(T\) を与えられた時に，
+</p>
+<dl class="org-dl">
+<dt>Column transducer</dt><dd>\mbox{}<br />
+\(T^{col}\) は \(R^+(T)\) を受理する transducer</dd>
+<dt>Quotienting</dt><dd>\mbox{} <br />
+同値関係 \(\simeq\) を定めて， <br />
+同値類は代表元にまとめる（圧縮する）ことで効率化</dd>
+</dl>
+</div>
+</div>
+
+
+<div id="outline-container-orgf220dc6" class="outline-3">
+<h3 id="orgf220dc6"><span class="section-number-3">4.9</span> Column Transducer の例</h3>
+<div class="outline-text-3" id="text-4-9">
+
+<div id="orgdc60f52" class="figure">
+<p><img src="./images/column-transducer.png" alt="column-transducer.png" />
+</p>
+</div>
+
+<ul class="org-ul">
+<li>これを一回走らせるだけで， <br />
+\(\rho_1, \rho_2, \rho_3, \rho_4\) をこの順番に実行した結果をシミュレートできる</li>
+</ul>
+
+
+<p>
+\(T^{col}\) の状態は \(Q\) の要素の列であり column と呼ぶ
+</p>
+<ul class="org-ul">
+<li>図の角丸の枠で囲んであるもの</li>
+<li>column が高さ i のとき，\(T^{col}\) は <br />
+\(R^i(T)\) が受理する文字列のペアを <b><b>一回実行するだけで</b></b> 受理する</li>
+</ul>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-org517e7a3" class="outline-3">
+<h3 id="org517e7a3"><span class="section-number-3">4.10</span> Column Transducer の形式的定義</h3>
+<div class="outline-text-3" id="text-4-10">
+<p>
+Transducer \(T\) が与えられたとき，
+column transducer は  \(T^{col} = (Q^{col}, q_{init}^{col}, \Delta^{col}, F^{col})\) の四つ組
+</p>
+<dl class="org-dl">
+<dt>\(Q^{col} = Q^+\)</dt><dd>\(T\) の状態の空でない列の集合</dd>
+<dt>\(q_{init}^{col} = q_{init}^+ \subseteq Q^{col}\)</dt><dd>\(T\) の初期状態の空でない列の集合</dd>
+<dt>\(\Delta^{col} \subseteq Q^{col} \times (\Sigma \times \Sigma) \times Q^{col}\)</dt><dd>は以下のように定義される
+<ul class="org-ul">
+<li>for any columns \(x_1 = q_1 q_2 \dots q_m\) and \(x_2 = r_1 r_2 \dots r_m\) and a pair (\(a, a')\),</li>
+<li>we have \((x_1, (a, a'), x_2) \in \Delta^{col}\)</li>
+<li>if there exist \(a_0, a_1, \dots, a_m\) with \(a = a_0\) and \(a' = a_m\)</li>
+<li>such that \(q_i \overset{(a_{i - 1}, a_i)}{\longrightarrow_T} r_i\)</li>
+<li>for \(1 \leq i \leq m\)</li>
+</ul></dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgeca9114" class="outline-2">
+<h2 id="orgeca9114"><span class="section-number-2">5</span> Quotienting</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org8ebb232" class="outline-3">
+<h3 id="org8ebb232"><span class="section-number-3">5.1</span> Quotieting のモチベーション</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Column transducer の問題は <b><b>無限の状態数を持つ</b></b> 可能性があること
+</p>
+<ul class="org-ul">
+<li>Explicit に生成することはできない</li>
+<li>\(T^{col}\) の column \(Q^{col}\) の集合を，<br />
+合同関係 \(\simeq\) を用いて <b><b>商集合</b></b> で扱えば良さそう
+<ul class="org-ul">
+<li>これを <b><b>Quotienting</b></b> と呼ぶ</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org4e1c9f1" class="outline-3">
+<h3 id="org4e1c9f1"><span class="section-number-3">5.2</span> Left/right-copying</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+状態 \(q \in Q\) は以下のような場合に <b><b>left-copying</b></b> という
+</p>
+
+<p>
+全ての次のような遷移
+</p>
+<ul class="org-ul">
+<li>\(q_{init} \overset{(a_0, a'_0)}{\longrightarrow_T} q_1 \overset{(a_1, a'_1)}{\longrightarrow_T} \dots \overset{(a_{n-1}, a'_{n-1})}{\longrightarrow_T} q_n\)</li>
+<li>ただし \(q_n = q\)
+について，
+<ul class="org-ul">
+<li>\(a_i = a'_i\) for all \(i \in \{0, 1, \dots, n - 1\}\)</li>
+</ul></li>
+</ul>
+
+
+<p>
+\hspace{1em}
+</p>
+
+
+<p>
+right-copying も同様に定義する
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1c081d4" class="outline-3">
+<h3 id="org1c081d4"><span class="section-number-3">5.3</span> left/right-copying な状態の表現</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+要するに，left-copying の状態の prefix はただ入力を出力へコピーして流すだけ
+</p>
+
+<ul class="org-ul">
+<li>left-copying な状態を \(q_L\)，</li>
+<li>right-copying な状態を \(q_R\)，</li>
+<li>left/right-copying な状態の集合を \(Q^{copy}\)
+と表す</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgb0aeacc" class="outline-3">
+<h3 id="orgb0aeacc"><span class="section-number-3">5.4</span> 合同関係 \(\simeq\) の定義</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+こうした <b><b>ただコピーするだけのもの</b></b> を無視して<br />
+等価性を判定するというのが今回採用する同値関係
+</p>
+<ul class="org-ul">
+<li>例えば，
+\(q_L q_L x q_R\)
+は
+\(q_L x q_R q_R\)
+と合同である</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-orge36178c" class="outline-3">
+<h3 id="orge36178c"><span class="section-number-3">5.5</span> \(\simeq\) 上の同値類の形式的定義</h3>
+<div class="outline-text-3" id="text-5-5">
+<p>
+\(\simeq\) 上の同値類は \(e_1 e_2 \dots e_n\) の形をした <b><b>正規表現</b></b> で表す
+</p>
+<ul class="org-ul">
+<li>ただし，\(e_i\) は以下の3つのうちのどれかの形になる
+
+<ol class="org-ol">
+<li>\(q_L^+\), for some left-copying state \(q_L\)</li>
+
+<li>\(q_R^+\), for some left-copying state \(q_R\)</li>
+
+<li>\(q\), for some state \(q\) which is neither left/right-copying</li>
+</ol></li>
+</ul>
+
+
+<ul class="org-ul">
+<li>さらに，冗長な表現は許さない
+<ul class="org-ul">
+<li>left/right copying かつ，<br />
+構文的に等しい正規表現 \(e_i\) が連続して現れるということはない</li>
+</ul></li>
+</ul>
+
+
+<p>
+もちろん well-formed になっている
+</p>
+<ul class="org-ul">
+<li>同じもの（同値類）は同じ表現（代表元）に落ちるはず</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org58ed369" class="outline-3">
+<h3 id="org58ed369"><span class="section-number-3">5.6</span> \(\simeq\) 上の同値類の形式的定義</h3>
+<div class="outline-text-3" id="text-5-6">
+<p>
+column \(x\) について，\([x]_\simeq\) で \(x\) の同値類を表す
+</p>
+<ul class="org-ul">
+<li>\(X, Y\), etc で column の同値類の集合（商集合）を表す</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org26f9eb7" class="outline-2">
+<h2 id="org26f9eb7"><span class="section-number-2">6</span> Quotient Transducer の導入</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-org28e7356" class="outline-3">
+<h3 id="org28e7356"><span class="section-number-3">6.1</span> Quotient Transducer の概要</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+\(Q^{col}\) 上の同値関係 \(\simeq\) も定義できたので，<br />
+この同値関係を使って，また transducer を定義する
+</p>
+<ul class="org-ul">
+<li>要するに， <b><b>各々の状態が正規表現である automata</b></b> を構築する</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org7bc9fa5" class="outline-3">
+<h3 id="org7bc9fa5"><span class="section-number-3">6.2</span> Quotient Transducer の形式的定義</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+<b><b>Quotient transducer</b></b> は \(T^\bullet = (Q^\bullet, q_{init}^\bullet, \Delta^\bullet, F^\bullet)\) の四つ組
+</p>
+<dl class="org-dl">
+<dt>\(Q^\bullet \subseteq Q^{col}/_{\simeq}\)</dt><dd>columns の同値類の集合</dd>
+<dt>\(q_{init}^\bullet = q_{init}^+\)</dt><dd>初期状態の同値類の集合
+<ul class="org-ul">
+<li>ただし，初期状態は left-copying だと仮定する</li>
+</ul></dd>
+<dt>\(\Delta^\bullet \subseteq Q^\bullet \times (\Sigma \times \Sigma) \times Q^\bullet\)</dt><dd>以下のように定義される遷移
+<ul class="org-ul">
+<li>For any columns \(x,x'\) and symbols \(a,a'\),</li>
+<li>if \((x,(a,a'),x') \in \Delta\)</li>
+<li>then \(([x]_\simeq, (a, a'), [x']_\simeq) \in \Delta^\bullet\).</li>
+</ul></dd>
+<dt>\(F^\bullet = F^{col}/_\simeq\)</dt><dd>同値関係 \(\simeq\) で \(F^{col}\) を分割したもの</dd>
+</dl>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgff87995" class="outline-3">
+<h3 id="orgff87995"><span class="section-number-3">6.3</span> Quotient Transducer の生成</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+\(T^{col}\) ，つまり \(R^+(T)\)，と同じものを受理する transducer を生成したい
+</p>
+<ul class="org-ul">
+<li>ただし，\(T^\bullet\) が <b><b>finite state transducer かはわからない</b></b>
+<ul class="org-ul">
+<li>無限に発散するかも</li>
+</ul></li>
+<li>（仕方がないので） \(T^\bullet\) が <br />
+finite state であった場合には停止する手続きを考える
+<ul class="org-ul">
+<li>つまり，この手法は <b><b>完全ではない</b></b> （アルゴリズムではない）</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org77fb385" class="outline-3">
+<h3 id="org77fb385"><span class="section-number-3">6.4</span> 前提とする定義：演算子</h3>
+<div class="outline-text-3" id="text-6-4">
+<ol class="org-ol">
+<li>状態 \(q \in Q\) に対して \(q^\oplus\) を以下のように定義する
+<ul class="org-ul">
+<li>\(q \in Q^{copy}\) なら \(q^\oplus := q^+\)</li>
+<li>\(q \in Q^{copy}\) でないなら \(q^\oplus := q\)</li>
+</ul></li>
+
+<li>演算子 \(\star\) を以下のように同値類の結合と定義する
+<ul class="org-ul">
+<li>\([x]_\simeq \star [y]_\simeq = [x \cdot y]_\simeq\)</li>
+<li>ただし， \( \cdot \) は column を結合する演算子</li>
+<li>より正確な定義は次ページ</li>
+</ul></li>
+</ol>
+
+
+<p>
+あとで例も出します
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org364386f" class="outline-3">
+<h3 id="org364386f"><span class="section-number-3">6.5</span> \(\star\) の正確な定義</h3>
+<div class="outline-text-3" id="text-6-5">
+<p>
+2 に関してもっと正確には
+</p>
+<ul class="org-ul">
+<li>colum の同値類を正規表現 \(e_1 \dots e_n\), \(f_1 \dots f_m\) で表現したとき</li>
+<li>\((e_1 \dots e_n) \star (f_1 \dots f_m)\) は
+<ul class="org-ul">
+<li>\(e_n, f_1\) が両方とも left/right-copying な状態 \(q\) の \(q^+\)
+と等しい場合は，
+\(e_1 \dots e_n \cdot f_2 \dots f_m\)</li>
+<li>そうではない場合は
+\(e_1 \dots e_n \cdot f_1 \dots f_m\)</li>
+</ul></li>
+</ul>
+
+
+<p>
+あとで例も出します
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgf515b3e" class="outline-3">
+<h3 id="orgf515b3e"><span class="section-number-3">6.6</span> Quotient transducer の遷移規則</h3>
+<div class="outline-text-3" id="text-6-6">
+<p>
+同値類の集合 \(X, Y\) について，以下のどちらか満たすとき，
+\(X \overset{(a, b)}{\longrightarrow_\bullet} Y\) と帰納的に定義する
+</p>
+<ol class="org-ol">
+<li>\(x \overset{(a, a')}{\longrightarrow_T} y\),
+\(X = x^\oplus\) かつ \(Y = y^\oplus\)</li>
+<li>\(X = X_1 \star X_2\), \(Y = Y_1 \star Y_2\),
+\(X \overset{(a, b)}{\longrightarrow_\bullet} X\) かつ
+\(Y \overset{(b, a')}{\longrightarrow_\bullet} Y\)</li>
+</ol>
+
+
+<p>
+あとで例も出します
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org2579e4d" class="outline-3">
+<h3 id="org2579e4d"><span class="section-number-3">6.7</span> 例題：トークンパッシング</h3>
+<div class="outline-text-3" id="text-6-7">
+
+<div id="orge44e50c" class="figure">
+<p><img src="./images/token-example.png" alt="token-example.png" />
+</p>
+</div>
+
+<ol class="org-ol">
+<li>\(q_L^+ \overset{(t, n)}{\longrightarrow_T} q\) から
+\(q_L^\oplus \overset{(t, n)}{\longrightarrow_T} q^\oplus\) なので
+\(q_L^+ \overset{(t, n)}{\longrightarrow_\bullet} q\)</li>
+
+<li>\(q_L^+ \overset{(n, n)}{\longrightarrow_T} q_L^+\) から
+\(q^\oplus \overset{(n, n)}{\longrightarrow_T} q^\oplus\) なので
+\(q_L^+ \overset{(n, n)}{\longrightarrow_\bullet} q_L^+\)</li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-org93933ed" class="outline-3">
+<h3 id="org93933ed"><span class="section-number-3">6.8</span> 例題：トークンパッシング</h3>
+<div class="outline-text-3" id="text-6-8">
+
+<div id="org3fb677c" class="figure">
+<p><img src="./images/token-example.png" alt="token-example.png" />
+</p>
+</div>
+
+
+<ol class="org-ol">
+<li value="3">\(\underbrace{q_L^+ \overset{(t, n)}{\longrightarrow_\bullet} q}_{\hspace{0.3em}\circled{1}}\)  と
+\(\underbrace{q_L^+ \overset{(n,n)}{\longrightarrow_\bullet} q_L^+}_{\hspace{0.3em}\circled{2}}\)
+から <br />
+\(q_L^+ \star q_L^+ \overset{(t, n)}{\longrightarrow_\bullet} q \star q_L^+ \)  なので <br />
+\(q_L^+ \overset{(t, n)}{\longrightarrow_\bullet} q q_L^+ \)</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org72dba55" class="outline-2">
+<h2 id="org72dba55"><span class="section-number-2">7</span> Quotient Transducer の生成手続き</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-orga58ed3e" class="outline-3">
+<h3 id="orga58ed3e"><span class="section-number-3">7.1</span> Quotient Transducer の生成手続き</h3>
+<div class="outline-text-3" id="text-7-1">
+
+<div id="orgbed58df" class="figure">
+<p><img src="./images/quoting-rmc.png" alt="quoting-rmc.png" />
+</p>
+</div>
+
+<p>
+\footnotesize
+</p>
+<ul class="org-ul">
+<li>W はまだ遷移先を計算していない状態の同値類（= 正規表現）の集合
+<ul class="org-ul">
+<li>\footnotesize
+W が空になったら計算終了</li>
+<li>\footnotesize
+W が空になるまで状態の同値類をポップして，<br />
+\(\longrightarrow_\bullet\) の先にあるものを追加していく</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org7c8055f" class="outline-3">
+<h3 id="org7c8055f"><span class="section-number-3">7.2</span> Quotient Transducer の生成手続きの適用例</h3>
+<div class="outline-text-3" id="text-7-2">
+<ol class="org-ol">
+<li>まずは初期状態 \(q_L^+\) を W に追加</li>
+<li>W から \(q_L^+\) を選択.
+<ol class="org-ol">
+<li>\(q_L^+ \overset{(t,n)}{\longrightarrow_\bullet} q\) なので,
+\(q\) を W に追加,
+また， \((q_L^+, (t, n), q)\) を \(\Delta^\bullet\).</li>
+<li>\(q_L^+ \overset{(t, n)}{\longrightarrow_\bullet} q\) と
+\(q_L^+ \overset{(n,n)}{\longrightarrow_\bullet} q_L^+\)
+から
+\(q_L^+ \overset{(t, n)}{\longrightarrow_\bullet} q q_L^+ \) なので<sub>前に紹介した例題を参照</sub><br />
+\(q q_L^+\) を W に追加,
+\((q_L^+ \overset{(t, n)}{\longrightarrow_\bullet} q q_L^+)\) を \(\Delta^\bullet\) に追加.</li>
+</ol></li>
+<li>W から \(q\) を選択.
+<ol class="org-ol">
+<li>\(q \overset{(n,t)}{\longrightarrow_\bullet} q_R^+\) なので
+\(q_R^+\) を W に追加,
+\((q, \overset{(n, t)}{\longrightarrow_\bullet}, q_R^+)\)
+を \(\Delta^\bullet\) に追加.</li>
+<li>\(q_R^+ \in F/_\simeq\) なので \(q_R^+\) を \(F^\bullet\) に追加</li>
+</ol></li>
+<li>&#x2026;</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgabbf594" class="outline-3">
+<h3 id="orgabbf594"><span class="section-number-3">7.3</span> Quotient Transducer の生成手続きの適用結果</h3>
+<div class="outline-text-3" id="text-7-3">
+
+<div id="orga177030" class="figure">
+<p><img src="./images/quoting-rmc-result.png" alt="quoting-rmc-result.png" />
+</p>
+</div>
+
+<ul class="org-ul">
+<li>この transducer は \((n, n)^* (t, n) (n, n)^* (n, t) (n, n)^*\) を受理する</li>
+<li>正規表現の包含関係を計算するのは簡単にできるので，
+safety の検証， \((I \odot R^*(T)) \cup B = \emptyset\) かどうかの確認，はすぐにできる</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org179274c" class="outline-2">
+<h2 id="org179274c"><span class="section-number-2">8</span> Monotomic Abstraction</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+<div id="outline-container-org23fb960" class="outline-3">
+<h3 id="org23fb960"><span class="section-number-3">8.1</span> Monotomic Abstraction とは</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+推移閉包を正確に計算することが難しい場合は <br />
+<b><b>over approximation</b></b> を行う
+</p>
+<ul class="org-ul">
+<li>次に紹介する例では，<br />
+wqo を適用できるように過大近似して検証している
+<ul class="org-ul">
+<li>Backward reachability などが適用できる</li>
+</ul></li>
+<li>もちろん false positive はありうる</li>
+</ul>
+
+
+<p>
+今回は例題を見せるだけで手法は紹介しません
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgfc79ccf" class="outline-3">
+<h3 id="orgfc79ccf"><span class="section-number-3">8.2</span> 量化子付きの RMC</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+全称量化付きの遷移規則を持つシステムの RMC を <br />
+直接行うのは難しい
+</p>
+<ul class="org-ul">
+<li>全称量化子のことを（若干）無視して検証する</li>
+<li>余計に遷移してしまうかもしれないので完全ではない
+<ul class="org-ul">
+<li>ただし，健全ではある</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org0f56d68" class="outline-3">
+<h3 id="org0f56d68"><span class="section-number-3">8.3</span> 例題：量化子付きの Mutex</h3>
+<div class="outline-text-3" id="text-8-3">
+
+<div id="orgd7a7a79" class="figure">
+<p><img src="./images/priority-mutex.png" alt="priority-mutex.png" />
+</p>
+</div>
+
+
+
+<dl class="org-dl">
+<dt>I</dt><dd>初期状態</dd>
+<dt>R</dt><dd>mutex 操作をするリクエスト．
+<ul class="org-ul">
+<li>自分以外に I, R でないプロセスがいるなら I \(\longrightarrow\) R に遷移しない</li>
+</ul></dd>
+<dt>W</dt><dd>mutex 操作をする前にもっと優先度の高いプロセスが操作しようとしていたら待ち続ける</dd>
+<dt>C</dt><dd>クリティカルセクション</dd>
+</dl>
+</div>
+</div>
+
+
+<div id="outline-container-org97b81f8" class="outline-3">
+<h3 id="org97b81f8"><span class="section-number-3">8.4</span> 例題：量化子付きの Mutex</h3>
+<div class="outline-text-3" id="text-8-4">
+<p>
+全てのプロセスが直線状につながっているという前提
+</p>
+
+<p>
+この中の位置がプロセスの優先度に対応している
+</p>
+<ul class="org-ul">
+<li>先頭に近いほど優先度が高い</li>
+</ul>
+
+
+<p>
+例：
+</p>
+<dl class="org-dl">
+<dt>\(\exists_{L} P\)</dt><dd>自分より左側に x があるなら，つまり自分よりも優先度の高いプロセスがいるなら，遷移する</dd>
+
+<dt>\(\forall_{LR} P\)</dt><dd>自分より左側と右側が全て P であるなら，つまり，自分以外が全て P なら遷移する</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org3b65f39" class="outline-2">
+<h2 id="org3b65f39"><span class="section-number-2">9</span> 量化子付きの遷移を含む例題の ShapeType エンコード</h2>
+<div class="outline-text-2" id="text-9">
+</div>
+<div id="outline-container-org145d14e" class="outline-3">
+<h3 id="org145d14e"><span class="section-number-3">9.1</span> 量化子付きの遷移を含む例題の ShapeType エンコード</h3>
+<div class="outline-text-3" id="text-9-1">
+<p>
+LMNtal ShapeType は文脈自由よりも遥かに <b><b>強力な文法を扱える</b></b>
+</p>
+<ul class="org-ul">
+<li>（少なくとも見た目だけは） <b><b>RMC の完全上位互換</b></b> のように見える</li>
+</ul>
+
+
+<p>
+量化子のついていない例題が
+（解けるかはともかく）ShapeType へエンコードできることはほとんど明らか
+</p>
+<ul class="org-ul">
+<li>量化子のついた例題に関してどうかは，あまり議論されていないように見える
+<ul class="org-ul">
+<li>（直線状・リング状の例題に関しては量化子付き書き換え規則の完全上位互換である）
+CSLMNtal の導入もまだ始めていない</li>
+</ul></li>
+</ul>
+
+
+<p>
+量化子のついている例題はどうか？
+</p>
+<ul class="org-ul">
+<li>多分エンコードはできる</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org7bf7760" class="outline-3">
+<h3 id="org7bf7760"><span class="section-number-3">9.2</span> 存在量化子付きの遷移を含む例題の ShapeType エンコード</h3>
+<div class="outline-text-3" id="text-9-2">
+<p>
+存在量化子は自明
+</p>
+<dl class="org-dl">
+<dt>RMC では</dt><dd>\mbox{}<br />
+<b><b>隣接したプロセスでない</b></b> プロセスの存在は
+存在量化子をつける必要があった</dd>
+<dt>LMNtal (ShapeType) では</dt><dd>\mbox{}<br />
+そもそも非連結グラフも扱うことができる（たぶん）</dd>
+</dl>
+</div>
+</div>
+
+
+<div id="outline-container-org54f5c5d" class="outline-3">
+<h3 id="org54f5c5d"><span class="section-number-3">9.3</span> 全称量化子付きの遷移を含む例題の ShapeType エンコード</h3>
+<div class="outline-text-3" id="text-9-3">
+<p>
+全称量化子はそんなに自明でない？
+</p>
+<ul class="org-ul">
+<li>「何かが無い場合に遷移する」という規則は直接は書けないが &hellip;</li>
+</ul>
+
+
+<p>
+関数的アトムを用いて
+</p>
+<ol class="org-ol">
+<li>ルールは事前に全称量化の条件をチェックしてから遷移する</li>
+<li>型の生成規則に全称量化のチェックを行うアトムも含める</li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-org7f6d6ec" class="outline-3">
+<h3 id="org7f6d6ec"><span class="section-number-3">9.4</span> 簡略化したプロトコル</h3>
+<div class="outline-text-3" id="text-9-4">
+<ul class="org-ul">
+<li>n 個のプロセスがある</li>
+<li><p>
+それぞれのプロセスは
+</p>
+<dl class="org-dl">
+<dt>i</dt><dd>初期状態</dd>
+<dt>r</dt><dd>リクエスト</dd>
+<dt>c</dt><dd>クリティカルセクション</dd>
+</dl>
+<p>
+の三つの状態をとる
+</p></li>
+<li>i \(\longrightarrow\) r は c なプロセスがいないなら遷移可能</li>
+<li>r \(\longrightarrow\) c は，<br />
+他にもっと優先度の高いプロセスが r, c でないなら遷移可能</li>
+</ul>
+
+
+<p>
+同時に二つ以上 c になるものがないか？
+を検証する
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org015d19a" class="outline-3">
+<h3 id="org015d19a"><span class="section-number-3">9.5</span> 全称量化付き ShapeType：システムの遷移規則</h3>
+<div class="outline-text-3" id="text-9-5">
+<p>
+\footnotesize
+</p>
+<div class="org-src-container">
+<pre class="src src-prolog">% r は左側が全て i ならクリティカルセクションへ遷移可能
+aquire @@
+H = forallL_I([r | T]) :- H = [r | T].
+
+% クリティカルセクションを離れる
+leave @@
+H = [c | T]  :- H = [i | T].
+
+% 他に誰もクリティカルセクションに入っていないのなら，i は r になって良い
+H = forallL_IL([i | forallR_IR(T)]) :- H = [r | T].
+</pre>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-org2797336" class="outline-3">
+<h3 id="org2797336"><span class="section-number-3">9.6</span> 全称量化付き ShapeType：システムの生成規則</h3>
+<div class="outline-text-3" id="text-9-6">
+<p>
+\tiny
+</p>
+<div class="org-src-container">
+<pre class="src src-prolog">defshape ps {
+    ps :- head(&lt;i*&gt;).
+
+    H = &lt;i*&gt; :- H = [i | &lt;i*&gt;].
+    H = &lt;i*&gt; :- H = forallL_I(&lt;i*&gt;).
+    H = &lt;i*&gt; :- H = &lt;(i|r)*&gt;.
+
+    H = &lt;(i|r)*&gt; :- H = [i | &lt;(i|r)*&gt;].     % 削れるかも
+    H = &lt;(i|r)*&gt; :- H = [r | &lt;(i|r)*&gt;].
+    H = &lt;(i|r)*&gt; :- forallL_IR(&lt;(i|r)*&gt;).
+    H = &lt;(i|r)*&gt; :- H = &lt;(i|r)*c?&gt;.
+
+    H = &lt;(i|r)*c?&gt; :- H = [i | &lt;(i|r)*c?&gt;]. % 削れるかも
+    H = &lt;(i|r)*c?&gt; :- H = [r | &lt;(i|r)*c?&gt;]. % 削れるかも
+    H = &lt;(i|r)*c?&gt; :- H = [c | &lt;(i|r)*c?(i|r)*&gt;]. % cs に入るのは一つ
+    H = &lt;(i|r)*c?&gt; :- H = &lt;(i|r)*c?(i|r)*&gt;.
+
+    H = &lt;(i|r)*c?(i|r)*&gt; :- H = [i | &lt;(i|r)*c?(i|r)*&gt;].
+    H = &lt;(i|r)*c?(i|r)*&gt; :- H = [r | &lt;(i|r)*c?(i|r)*&gt;].
+    H = &lt;(i|r)*c?(i|r)*&gt; :- H = forallR_IR(&lt;(i|r)*c?(i|r)*&gt;]).
+    H = &lt;(i|r)*c?(i|r)*&gt; :- H = nil.
+}
+</pre>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-org699dfe1" class="outline-3">
+<h3 id="org699dfe1"><span class="section-number-3">9.7</span> 全称量化付き ShapeType</h3>
+<div class="outline-text-3" id="text-9-7">
+<p>
+例題の感想
+</p>
+<ul class="org-ul">
+<li>（文法的に）あっているのかもよくわからない</li>
+<li>TODO: 山本さんに相談</li>
+</ul>
+
+
+<p>
+とはいえ，（RMC で出てくる例題レベルでは）<br />
+全称量化子も文法上はエンコードできる（ようだ）
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org59f45fc" class="outline-2">
+<h2 id="org59f45fc"><span class="section-number-2">10</span> まとめ</h2>
+<div class="outline-text-2" id="text-10">
+</div>
+<div id="outline-container-org99dc204" class="outline-3">
+<h3 id="org99dc204"><span class="section-number-3">10.1</span> まとめ</h3>
+<div class="outline-text-3" id="text-10-1">
+<p>
+RMC の手法がそのまま LMNtal に適用できるとは<sub>あまり</sub>思えないが<br />
+transducer という概念は重要だと思う
+</p>
+<ul class="org-ul">
+<li><b><b>何で抽象化するか</b></b> ということそのものなので
+<ul class="org-ul">
+<li>RMC では finite state automata = regular expression だった</li>
+<li>GTS の CEGAR では（たぶん）ペトリネットだった</li>
+<li>LMNtal ShapeType では LMNtal rule が <br />
+transducer になっているのかもしれない
+（わからないが）</li>
+</ul></li>
+</ul>
+
+
+<p>
+ShapeType は表現力的には超強力だということが理解できた
+</p>
+<ul class="org-ul">
+<li>量化子も（解けるかはわからないが）扱えそう</li>
+<li>ただ，どの程度効率的に解けるのかとかはわからない</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org38d4ced" class="outline-3">
+<h3 id="org38d4ced"><span class="section-number-3">10.2</span> 参考文献</h3>
+<div class="outline-text-3" id="text-10-2">
+<p>
+Handbook of Model Checking
+</p>
+<ul class="org-ul">
+<li><a href="https://link.springer.com/book/10.1007/978-3-319-10575-8">https://link.springer.com/book/10.1007/978-3-319-10575-8</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: \today{}</p>
+<p class="author">Author: 佐野 仁</p>
+<p class="date">Created: 2021-07-20 Tue 14:05</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

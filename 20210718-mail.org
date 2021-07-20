@@ -1,0 +1,49 @@
+** mail
+
+上田研の皆さま，M1 の佐野です．
+ゼミ発表のアナウンスをいたします．
+
+----
+題目：Regular Model Cheching の紹介
+日時：7月20日(火) 14:45〜
+場所：zoom
+概要：
+LMNtal/SLIM は Model Checking が可能だが，
+全状態を列挙しないと健全な検査はできないため，パラメータの入ったモデルは扱えない．
+
+Regular Model Checking は，
+リングや直線状の形状をした，隣接したプロセス間で通信しあうシステムを，
+検証できるため，
+LMNtal を用いたグラフに基づく検証の抽象化を行う際に，
+これが役立つ，またはこれとの評価比較が必要になる，可能性がある．
+
+そこで，今回の発表では，Regular Model Checking について紹介する．
+----
+
+以上です．よろしくお願いいたします．
+
+佐野 仁
+
+----
+補足
+
+参考文献：Handbook of Model Checking
+- https://link.springer.com/book/10.1007/978-3-319-10575-8
+- この本の Chapter 21: Model Checing Parameteterized Systems を紹介します
+- その中でも Section 3: Regular Model Checking を中心に扱います
+
+
+       
+   
+
+
+   
+  
+** 背景：LMNtal のモデル検査
+
+   
+   
+
+   
+
+   
